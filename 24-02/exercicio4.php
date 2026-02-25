@@ -23,11 +23,12 @@
     if($_SERVER['REQUEST_METHOD'] =="POST"){
         $valor1=$_POST['pri_numero'];
         $valor2= $_POST['seg_numero'];
-        $div= $valor1 / $valor2;
+
         if($_POST['seg_numero'] == 0){
             echo "Não é possivel fazer essa divisão com o 0";
         }
         else{
+        $div= $valor1 / $valor2;
         echo "a divisão é: $div";
     }
     }
