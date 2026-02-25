@@ -8,7 +8,7 @@
 </head>
 <body> 
 <div class="container py-3">
-<h1>Exercicio 1</h1>
+<h1>Exercicio 2</h1>
 <form method="post">
 <div class="mb-3">
               <label for="pri_numero" class="form-label">Primeiro-numero</label>
