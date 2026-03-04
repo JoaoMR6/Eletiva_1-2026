@@ -17,7 +17,7 @@
 <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 <?php 
-    if ($_SERVER['REQUEST_METHOD' == "POST"]){
+    if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $valor1 = $_POST["valor1"];
        /* if($valor1 == "+")
             echo "<p>Sinal de soma </p>";
@@ -59,6 +59,11 @@
         default:
             echo "<p>Sinal invalido </p>";
             break;
+    }
+
+    for($i=1; $i<=10; $i++){
+        $resul= $valor1 * $i;
+        echo "<p>$valor1 X $i = $resul </p>";
     }
 }
 
