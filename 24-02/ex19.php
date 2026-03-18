@@ -19,6 +19,14 @@
 <?php 
     if($_SERVER['REQUEST_METHOD'] =="POST"){
         $valor1=$_POST['dia'];
+        $horas= $valor1 * 24;
+        echo "Horas = $horas";
+
+        $minutos= $dias *60;
+        echo "Minutos = $minutos";
+
+        $segundos= $minutos *60;
+        echo "Segundos = $segundos";
     }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
