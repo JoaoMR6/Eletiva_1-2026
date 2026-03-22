@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Exercício 6</title>
+<title>Exercício 8</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" >
 </head>
 <body> 
 <div class="container py-3">
-<h1>Exercício 6</h1>
+<h1>Exercício 8</h1>
 <form method="post">
 <div class="mb-3">
               <label for="pri" class="form-label">Informe o Valor</label>
@@ -22,10 +22,14 @@
     if($_SERVER['REQUEST_METHOD']== "POST"){
         $valor= $_POST["pri"];
 
-        for($i=1; $i <= $valor; $i++){
-            echo"<h3>$i </h3>";
+        $i= $valor;
 
+        do {
+            echo "$i";
+            $i--;
         }
+        while($i >= 1);
+            
         
 
        
