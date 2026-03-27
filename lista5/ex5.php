@@ -35,26 +35,24 @@
             
 
             // adicionar no mapa
-            $livros[$nome]= [
-                 "qtd"=> $qtd];
-            }
+            $livros[$nome]= $qtd;
+        }
+            
 
         //ordernar pelo nome
-        arsort($livros, function($a){
-            return strcmp($a["nome"]);
-        });
+        ksort($livros);
 
         //exibir
-        echo"<h2> Lista de Produtos </h2>";
+        echo"<h2> Lista de Livos </h2>";
         
 
-        foreach($livros as $nome => $dados){
-            if($dados["qtd"] > 5){
-                echo "| Nome: {$dados["nome"]} | Preço: " . number_format($dados["qtd"]). "</p>";}
+        foreach($livros as $nome => $qtd){
+            if($qtd > 5){
+                echo "| Nome: $nome | Quantidade:  $qtd</p>";}
 
             else{
                 echo "<h3> ALERTA: ESTOQUE COM POUCA QUANTIDADE</h3>";
-                echo "| Nome: {$dados["nome"]} | Preço: " . number_format($dados["qtd"]). "</p>";
+                echo "| Nome: $nome | Quantidade:  $qtd</p>";
             }
             }
         
