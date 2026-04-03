@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Usuário</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #fff; padding: 20px; }
+        .form-label { font-weight: bold; margin-bottom: 2px; font-size: 0.9rem; }
+        .form-control::placeholder { color: #ccc; font-style: italic; }
+        h2 { font-weight: 400; color: #333; margin-bottom: 20px; }
+        hr { margin-bottom: 30px; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Novo Usuário</h2>
+    <hr>
+
+    <form>
+        <div class="row mb-3">
+            <div class="col-12">
+                <label for="nome" class="form-label">Nome:</label>
+                <input type="text" class="form-control" id="nome" placeholder="Informe o nome...">
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-3">
+                <label for="cpf" class="form-label">CPF:</label>
+                <input type="text" class="form-control" id="cpf" placeholder="Informe o cpf...">
+            </div>
+            <div class="col-md-7">
+                <label for="endereco" class="form-label">Endereço:</label>
+                <input type="text" class="form-control" id="endereco" placeholder="Informe o endereço...">
+            </div>
+            <div class="col-md-2">
+                <label for="nivel" class="form-label">Nível:</label>
+                <select class="form-select" id="nivel">
+                    <option selected>---</option>
+                    <option value="1">Administrador</option>
+                    <option value="2">Usuário</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Informe o email...">
+            </div>
+            <div class="col-md-4">
+                <label for="senha" class="form-label">Senha:</label>
+                <input type="password" class="form-control" id="senha" placeholder="Informe a senha...">
+            </div>
+            <div class="col-md-2">
+                <label for="status" class="form-label">Status:</label>
+                <select class="form-select" id="status">
+                    <option selected>---</option>
+                    <option value="ativo">Ativo</option>
+                    <option value="inativo">Inativo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 text-end">
+                <button type="submit" class="btn btn-success px-4 me-2">Enviar</button>
+                <button type="button" class="btn btn-outline-secondary px-4">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
