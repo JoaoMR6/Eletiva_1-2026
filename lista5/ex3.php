@@ -49,7 +49,7 @@
                  "pre"=> $pre];
             }
 
-        //ordernar pelo nome
+        //ordernar pelo codigo
         uasort($produtos, function($a, $b){
             return strcmp($a["nome"], $b["nome"]);
         });
