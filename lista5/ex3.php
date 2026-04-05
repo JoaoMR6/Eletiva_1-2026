@@ -49,7 +49,7 @@
                  "pre"=> $pre];
             }
 
-        //ordernar pelo codigo
+        //ordernar pelo nome
         uasort($produtos, function($a, $b){
             return strcmp($a["nome"], $b["nome"]);
         });
@@ -58,7 +58,7 @@
         echo"<h2> Lista de Produtos </h2>";
         
 
-        foreach($produtos as $nome => $dados){
+        foreach($produtos as $cod => $dados){
                 echo "<p>Codigo: $cod | Nome: {$dados["nome"]} | Preço: " . number_format($dados["pre"]). "</p>";
             }
         
