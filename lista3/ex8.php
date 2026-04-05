@@ -22,18 +22,15 @@
     if($_SERVER['REQUEST_METHOD']== "POST"){
         $valor= $_POST["pri"];
 
+        //faz o $i ficar com o mesmo valor que $valor
         $i= $valor;
 
+        // printa o $i, e vai o diminuindo enquanto ele for maior ou igual a 1
         do {
             echo "$i";
             $i--;
         }
-        while($i >= 1);
-            
-        
-
-       
-    
+        while($i >= 1); 
     }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
