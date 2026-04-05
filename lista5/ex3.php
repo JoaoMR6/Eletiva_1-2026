@@ -58,7 +58,7 @@
         echo"<h2> Lista de Produtos </h2>";
         
 
-        foreach($produtos as $cod => $dados){
+        foreach($produtos as $nome => $dados){
                 echo "<p>Codigo: $cod | Nome: {$dados["nome"]} | Preço: " . number_format($dados["pre"]). "</p>";
             }
         
