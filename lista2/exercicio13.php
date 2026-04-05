@@ -20,6 +20,7 @@
     if($_SERVER['REQUEST_METHOD'] =="POST"){
         $valor1=$_POST['metros'];
 
+        // transformando metros em centimetros
         $cm=  $valor1 *100;
 
         echo "Em Centimetros = $cm.";

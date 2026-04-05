@@ -27,10 +27,12 @@
         $palavra1= $_POST["pri"];
         $palavra2= $_POST["seg"];
 
+        // SE a 2 palavra estiver dentro do 1 ela ira aparecer na tela (exemplo 1P=computador || 2P=dor)
         if(strpos($palavra1, $palavra2) !== false){
             echo"<h3>$palavra2 está contida na $palavra1 </h3>";
         }
 
+        // SE não estiver contida (exemplo 1P=computador || 2P= vida)
         else{
             echo"<h3>$palavra2 NÃO está contida na $palavra1 </h3>";
         }

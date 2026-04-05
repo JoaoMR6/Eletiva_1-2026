@@ -38,6 +38,7 @@
             $pre= $_POST["preco"][$i];
 
             //calculo do desconto
+            //apenas SE o preço for maior que 100
             if($pre > 100){
                 $pre= $pre * 0.9;
             }
