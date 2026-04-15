@@ -1,0 +1,7 @@
+Baixar o arquivo de projeto do git da pro vanessaborges02, pode usar como base 
+para meu projeto
+
+Ver arquivo conexao.php == require_once('conexao.php');
+tentar arrumar antes de dar erro(try (tryget))
+
+Ver o cadastro tbm
