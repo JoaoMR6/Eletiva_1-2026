@@ -3,14 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistema de Aluguel</title>
+  <title>ALucar - Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .btn-alucar {
+        background: linear-gradient(90deg, #6f42c1, #0d6efd, #d63384);
+        color: white;
+        border: none;
+    }
+    .btn-alucar:hover {
+        color: white;
+        opacity: 0.9;
+    }
+  </style>
 </head>
 <body class="bg-light">
 
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
-    <h3 class="text-center mb-4">Sistema de Aluguel de Carros</h3>
+    <h3 class="text-center mb-4">Login ALucar 🐺</h3>
 
     <form method="post">
       <div class="mb-3">
@@ -23,15 +34,7 @@
         <input name="senha" type="password" class="form-control" placeholder="Digite sua senha" required>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">Tipo de Acesso</label>
-        <select name="tipo" class="form-control" required>
-          <option value="cliente">Cliente</option>
-          <option value="gerenciador">Gerenciador</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn btn-primary w-100">Entrar</button>
+      <button type="submit" class="btn btn-alucar w-100 fw-bold">Entrar</button>
     </form>
 
     <?php
@@ -41,33 +44,37 @@
       if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-        $tipo = $_POST['tipo']; 
 
         try{
-          // Adicionamos o 'tipo' na consulta para garantir a validação exata
-          $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = ? AND tipo = ?");
-          $stmt->execute([$email, $tipo]);
+          // Buscamos o usuário apenas pelo email
+          $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = ?");
+          $stmt->execute([$email]);
           $usuario = $stmt->fetch();
           
-   
-          $senha_correta = password_verify($senha, $usuario['senha']);
-          
-          if($usuario && $senha_correta){
-            $_SESSION['nome'] = $usuario['nome'];
-            $_SESSION['acesso'] = true; 
-            $_SESSION['tipo'] = $tipo;
-            
-            // Redirecionamento usando  função header
-            if($tipo == 'gerenciador'){
-                header('Location: painel_gerenciador.php');
-            } else {
-                header('Location: principal.php');
-            }
+          if($usuario){
+              // Verifica se a senha bate
+              $senha_correta = password_verify($senha, $usuario['senha']);
+              
+              if($senha_correta){
+                $_SESSION['nome'] = $usuario['nome'];
+                $_SESSION['acesso'] = true; 
+                // Salvamos o tipo de acesso consultando diretamente o banco de dados
+                $_SESSION['tipo'] = $usuario['tipo']; 
+                
+                if($usuario['tipo'] == 'gerenciador'){
+                    header('Location: painel_gerenciador.php');
+                } else {
+                    header('Location: usuario_painel.php');
+                }
+                exit();
+              } else {
+                echo "<p class='text-danger mt-3 text-center fw-bold'>Credenciais inválidas!</p>";
+              }
           } else {
-            echo "<p class='text-danger mt-3 text-center'>Credenciais inválidas!</p>";
+              echo "<p class='text-danger mt-3 text-center fw-bold'>Credenciais inválidas!</p>";
           }
         } catch(Exception $e){
-          echo "Erro: ". $e->getMessage();
+          echo "<p class='text-danger mt-3 text-center'>Erro: ". $e->getMessage() . "</p>";
         }
       }
     ?>
