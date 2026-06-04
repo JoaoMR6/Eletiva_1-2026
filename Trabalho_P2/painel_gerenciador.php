@@ -1,5 +1,4 @@
 <?php
-
     require_once('cabecalho.php');
 ?>
 
@@ -22,31 +21,42 @@
     </div>
 </div>
 
-<div class="row justify-content-center mt-5">
+<div class="row justify-content-center mt-4">
     
-    <div class="col-md-4 mb-3">
+    <div class="col-md-3 mb-3">
         <div class="card shadow p-4 h-100">
             <h4 class="text-center mb-3">Categorias</h4>
-            <p class="text-center text-muted mb-4">Adicione, edite ou remova os grupos de veículos (Ex: Sedan, SUV, Hatch).</p>
-            <a href="categorias.php" class="btn btn-alucar w-100 fw-bold mt-auto">Gerenciar Categorias</a>
+            <p class="text-center text-muted mb-4 small">Gerencie grupos de veículos (Sedan, SUV, etc).</p>
+            <a href="categoria.php" class="btn btn-alucar w-100 fw-bold mt-auto">Gerenciar</a>
         </div>
     </div>
     
-    <div class="col-md-4 mb-3">
+    <div class="col-md-3 mb-3">
         <div class="card shadow p-4 h-100">
             <h4 class="text-center mb-3">Veículos</h4>
-            <p class="text-center text-muted mb-4">Gerencie a frota de carros disponíveis, valores e disponibilidade.</p>
-            <a href="produtos.php" class="btn btn-alucar w-100 fw-bold mt-auto">Gerenciar Veículos</a>
+            <p class="text-center text-muted mb-4 small">Gerencie a frota de carros disponíveis.</p>
+            <a href="produto.php" class="btn btn-alucar w-100 fw-bold mt-auto">Gerenciar</a>
         </div>
     </div>
 
+    <div class="col-md-3 mb-3">
+        <div class="card shadow p-4 h-100">
+            <h4 class="text-center mb-3">Contratos</h4>
+            <p class="text-center text-muted mb-4 small">Defina valores para diária, semanal ou mensal.</p>
+            <a href="contratos.php" class="btn btn-alucar w-100 fw-bold mt-auto">Gerenciar</a>
+        </div>
+    </div>
 
-    <?php
-
-    require_once('rodape.php');
-    ?>
+    <div class="col-md-3 mb-3">
+        <div class="card shadow p-4 h-100">
+            <h4 class="text-center mb-3">Aluguéis</h4>
+            <p class="text-center text-muted mb-4 small">Registre e consulte aluguéis realizados.</p>
+            <a href="aluguel.php" class="btn btn-alucar w-100 fw-bold mt-auto">Gerenciar</a>
+        </div>
+    </div>
 
 </div>
 
-</div> </body>
-</html>
+<?php
+    require_once('rodape.php');
+?>

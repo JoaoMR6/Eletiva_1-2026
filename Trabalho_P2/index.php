@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    require_once('conexao.php');
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -11,10 +16,7 @@
         color: white;
         border: none;
     }
-    .btn-alucar:hover {
-        color: white;
-        opacity: 0.9;
-    }
+    .btn-alucar:hover { color: white; opacity: 0.9; }
   </style>
 </head>
 <body class="bg-light">
@@ -26,52 +28,39 @@
     <form method="post">
       <div class="mb-3">
         <label class="form-label">Email</label>
-        <input name="email" type="email" class="form-control" placeholder="Digite seu email" required>
+        <input name="email" type="email" class="form-control" required>
       </div>
-
       <div class="mb-3">
         <label class="form-label">Senha</label>
-        <input name="senha" type="password" class="form-control" placeholder="Digite sua senha" required>
+        <input name="senha" type="password" class="form-control" required>
       </div>
-
       <button type="submit" class="btn btn-alucar w-100 fw-bold">Entrar</button>
     </form>
 
     <?php
-      require_once('conexao.php');
-      session_start();
-      
       if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $email = $_POST['email'];
         $senha = $_POST['senha'];
 
         try{
-          // Buscamos o usuário apenas pelo email
           $stmt = $pdo->prepare("SELECT * FROM usuario WHERE email = ?");
           $stmt->execute([$email]);
           $usuario = $stmt->fetch();
           
-          if($usuario){
-              // Verifica se a senha bate
-              $senha_correta = password_verify($senha, $usuario['senha']);
-              
-              if($senha_correta){
-                $_SESSION['nome'] = $usuario['nome'];
-                $_SESSION['acesso'] = true; 
-                // Salvamos o tipo de acesso consultando diretamente o banco de dados
-                $_SESSION['tipo'] = $usuario['tipo']; 
-                
-                if($usuario['tipo'] == 'gerenciador'){
-                    header('Location: painel_gerenciador.php');
-                } else {
-                    header('Location: usuario_painel.php');
-                }
-                exit();
-              } else {
-                echo "<p class='text-danger mt-3 text-center fw-bold'>Credenciais inválidas!</p>";
-              }
+          if($usuario && password_verify($senha, $usuario['senha'])){
+            $_SESSION['usuario_id'] = $usuario['id']; // Importante para identificar o cliente depois
+            $_SESSION['nome'] = $usuario['nome'];
+            $_SESSION['tipo'] = $usuario['tipo']; 
+            
+            // Redirecionamento condicional
+            if($usuario['tipo'] == 'gerenciador'){
+                header('Location: painel_gerenciador.php');
+            } else {
+                header('Location: painel_usuario.php');
+            }
+            exit();
           } else {
-              echo "<p class='text-danger mt-3 text-center fw-bold'>Credenciais inválidas!</p>";
+            echo "<p class='text-danger mt-3 text-center fw-bold'>Credenciais inválidas!</p>";
           }
         } catch(Exception $e){
           echo "<p class='text-danger mt-3 text-center'>Erro: ". $e->getMessage() . "</p>";
@@ -84,6 +73,5 @@
     </p>
   </div>
 </div>
-
 </body>
 </html>

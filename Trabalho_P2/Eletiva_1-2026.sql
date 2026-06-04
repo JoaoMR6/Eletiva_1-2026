@@ -1,37 +1,48 @@
--- Criação do banco de dados
-CREATE SCHEMA IF NOT EXISTS `projetophp` DEFAULT CHARACTER SET utf8 ;
-USE `projetophp` ;
+/* Script do Banco de Dados - Projeto ALucar */
 
--- Tabela de usuários (Com CNPJ e Tipo de Login já inclusos)
-CREATE TABLE IF NOT EXISTS `projetophp`.`usuario` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `email` VARCHAR(255) NOT NULL,
-  `nome` VARCHAR(255) NOT NULL,
-  `senha` TEXT NOT NULL,
-  `cnpj` VARCHAR(18) NULL, 
-  `tipo` VARCHAR(20) NOT NULL DEFAULT 'cliente', 
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-ENGINE = InnoDB;
+CREATE DATABASE IF NOT EXISTS projetophp;
+USE projetophp;
 
--- Tabela de categoria
-CREATE TABLE IF NOT EXISTS `projetophp`.`categoria` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+/* Tabela de Usuários (Clientes) */
+CREATE TABLE IF NOT EXISTS usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
 
--- Tabela de produto
-CREATE TABLE IF NOT EXISTS `projetophp`.`produto` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `descricao` VARCHAR(255) NOT NULL,
-  `valor` DECIMAL(8,2) NOT NULL,
-  `categoria_id` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_produto_categoria_idx` (`categoria_id` ASC),
-  CONSTRAINT `fk_produto_categoria`
-    FOREIGN KEY (`categoria_id`)
-    REFERENCES `projetophp`.`categoria` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+/* Tabela de Categorias */
+CREATE TABLE IF NOT EXISTS categoria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+
+/* Tabela de Produtos (Veículos) */
+CREATE TABLE IF NOT EXISTS produto (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    categoria_id INT NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (categoria_id) REFERENCES categoria(id)
+);
+
+/* Tabela de Contratos (RF3) */
+CREATE TABLE IF NOT EXISTS contrato (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tipo VARCHAR(50) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL
+);
+
+/* Tabela de Aluguéis (RF4) */
+CREATE TABLE IF NOT EXISTS aluguel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT NOT NULL,
+    produto_id INT NOT NULL,
+    contrato_id INT NOT NULL,
+    data_inicio DATE NOT NULL,
+    data_fim DATE NOT NULL,
+    valor_total DECIMAL(10,2) NOT NULL,
+    
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (produto_id) REFERENCES produto(id),
+    FOREIGN KEY (contrato_id) REFERENCES contrato(id)
+);

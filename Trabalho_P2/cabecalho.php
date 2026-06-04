@@ -1,5 +1,12 @@
 <?php
-    session_start();
+
+    // Verifica se já existe uma sessão ativa antes de iniciar
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    // O restante do seu cabeçalho continua aqui...
+
     if (!isset($_SESSION['acesso']) || $_SESSION['acesso'] == false){
         header('Location: index.php');
         exit();
@@ -35,15 +42,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">      
         <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="principal.php">Início</a>
+            <a class="nav-link" aria-current="page" href="painel_gerenciador.php">Início</a>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="dropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Gerenciar Frota
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdown2">
-                <li><a class="dropdown-item" href="categorias.php">Categorias (Grupos)</a></li>
-                <li><a class="dropdown-item" href="produtos.php">Veículos (Produtos)</a></li>
+                <li><a class="dropdown-item" href="categoria.php">Categorias (Grupos)</a></li>
+                <li><a class="dropdown-item" href="produto.php">Veículos (Produtos)</a></li>
             </ul>
         </li>
         <li class="nav-item dropdown">
