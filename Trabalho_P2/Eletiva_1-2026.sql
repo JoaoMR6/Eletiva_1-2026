@@ -46,3 +46,22 @@ CREATE TABLE IF NOT EXISTS aluguel (
     FOREIGN KEY (produto_id) REFERENCES produto(id),
     FOREIGN KEY (contrato_id) REFERENCES contrato(id)
 );
+
+ALTER TABLE usuario ADD COLUMN senha VARCHAR(255) NOT NULL;
+
+ALTER TABLE usuario 
+ADD COLUMN data_nascimento DATE NULL,
+ADD COLUMN cpf VARCHAR(14) NULL;
+
+ALTER TABLE produto 
+ADD COLUMN marca VARCHAR(50) NOT NULL,
+ADD COLUMN modelo VARCHAR(50) NOT NULL,
+ADD COLUMN placa VARCHAR(10) NOT NULL UNIQUE,
+ADD COLUMN ano INT NOT NULL,
+ADD COLUMN status ENUM('disponivel', 'alugado') DEFAULT 'disponivel';
+
+ALTER TABLE usuario ADD COLUMN tipo VARCHAR(20) DEFAULT 'cliente';
+UPDATE usuario 
+SET tipo = 'gerenciador' 
+where id= 1;
+
