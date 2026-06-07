@@ -54,9 +54,9 @@
             
             // Redirecionamento condicional
             if($usuario['tipo'] == 'gerenciador'){
-                header('Location:painel_gerenciador.php');
+                header('Location: painel_gerenciador.php');
             } else {
-                header('Location:painel_usuario.php');
+                header('Location: painel_usuario.php');
             }
             exit();
           } else {

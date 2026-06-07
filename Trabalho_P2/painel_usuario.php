@@ -1,5 +1,6 @@
 <?php
-    require_once('cabecalho.php');
+    session_start();
+    require_once('cabecalho_usuario.php');
     require_once('conexao.php');
 
     // Verifica se está logado

@@ -4,7 +4,7 @@
     require_once('conexao.php');
 
     // 1. Verificação de Segurança única e otimizada
-    $stmt = $pdo->prepare("SELECT data_nascimento, cpf, cnpj FROM usuario WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT data_nascimento, cpf FROM usuario WHERE id = ?");
     $stmt->execute([$_SESSION['usuario_id']]);
     $user = $stmt->fetch();
 

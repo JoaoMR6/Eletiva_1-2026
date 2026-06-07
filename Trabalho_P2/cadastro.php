@@ -40,10 +40,7 @@
         <input type="password" name="senha" class="form-control" placeholder="Digite sua senha" required>
       </div>
 
-      <div class="mb-3">
-        <label class="form-label">CNPJ (Opcional)</label>
-        <input type="text" name="cnpj" class="form-control" placeholder="Apenas para empresas">
-      </div>
+
 
       <button type="submit" class="btn btn-alucar w-100 fw-bold">Cadastrar</button>
     </form>
@@ -53,15 +50,14 @@
         require_once('conexao.php');
         $nome = $_POST['nome'];
         $email = $_POST['email'];
-        // Trata o CNPJ caso o usuário deixe em branco
-        $cnpj = empty($_POST['cnpj']) ? null : $_POST['cnpj']; 
         $senha = password_hash($_POST['senha'], PASSWORD_BCRYPT);
         
         try{
+          $stmt = $pdo->prepare('INSERT INTO usuario (nome, email, senha)
+                                         VALUES (?, ?, ?);');
           
-          $stmt = $pdo->prepare('INSERT INTO usuario (nome, email, senha, cnpj)
-                                  VALUES (? , ?, ?, ?);');
-          if($stmt->execute([$nome, $email, $senha, $cnpj])){
+          // Agora o array contém exatamente 3 itens, correspondentes aos 3 '?'
+          if($stmt->execute([$nome, $email, $senha])){
             echo "<p class='text-success text-center fw-bold mt-3'>Cadastro realizado! Faça o login!</p>";
           } else {
             echo "<p class='text-danger text-center fw-bold mt-3'>Erro ao cadastrar! Tente novamente.</p>";
@@ -69,7 +65,7 @@
         } catch(Exception $e){
           echo "<p class='text-danger text-center mt-3'>Erro: ".$e->getMessage()."</p>";
         }
-      }
+        }
     ?>
 
     <p class="text-center mt-3">

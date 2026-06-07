@@ -2,12 +2,15 @@
     require_once('cabecalho.php');
     require_once('conexao.php');
     
-    try{
-        // O comando SQL permanece exatamente o mesmo que você enviou
-        $stmt = $pdo->query('SELECT p.*, c.nome FROM produto p
+    try {
+        // Corrigido: usando aliases (AS) para diferenciar os nomes das colunas
+        // e trazendo as novas colunas (marca, modelo, placa, etc)
+        $stmt = $pdo->query('SELECT p.id, p.marca, p.modelo, p.placa, p.ano, p.valor, 
+                                    p.status, c.nome AS nome_categoria 
+                             FROM produto p
                              INNER JOIN categoria c ON c.id = p.categoria_id');
-        $resultado = $stmt->fetchAll();
-    } catch(Exception $e){
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch(Exception $e) {
         echo "<div class='alert alert-danger'>Erro: ".$e->getMessage()."</div>";
     }
 ?>
@@ -33,20 +36,28 @@
     <table class="table table-hover table-striped mb-0">
     <thead class="table-dark">
         <tr>
-        <th>ID</th>
-        <th>Veículo (Descrição)</th>
-        <th>Grupo (Categoria)</th>
-        <th>Valor da Diária</th>
-        <th>Ações</th>
+            <th>ID</th>
+            <th>Veículo</th>
+            <th>Placa</th>
+            <th>Grupo (Categoria)</th>
+            <th>Valor da Diária</th>
+            <th>Status</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
         <?php foreach ($resultado as $r): ?>
         <tr>
-            <td><?= $r['id'] ?></td>
-            <td class="fw-bold"><?= $r['descricao'] ?></td>
-            <td><?= $r['nome'] ?></td>
+            <td><?= htmlspecialchars($r['id']) ?></td>
+            <td class="fw-bold"><?= htmlspecialchars($r['marca'] . ' ' . $r['modelo'] . ' (' . $r['ano'] . ')') ?></td>
+            <td><?= htmlspecialchars($r['placa']) ?></td>
+            <td><?= htmlspecialchars($r['nome_categoria']) ?></td>
             <td class="text-success fw-bold">R$ <?= number_format($r['valor'], 2, ',', '.') ?></td>
+            <td>
+                <span class="badge <?= $r['status'] == 'disponivel' ? 'bg-success' : 'bg-danger' ?>">
+                    <?= ucfirst($r['status']) ?>
+                </span>
+            </td>
             <td class="d-flex gap-2">
                 <a href="alterar_produto.php?id=<?= $r['id'] ?>" class="btn btn-sm btn-warning fw-bold">Editar</a>
                 <a href="consultar_produto.php?id=<?= $r['id'] ?>" class="btn btn-sm btn-info fw-bold text-white">Consultar</a>

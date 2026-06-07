@@ -2,11 +2,9 @@
     require_once('cabecalho.php');
     require_once('conexao.php');
 
-    // SOLUÇÃO: Inicializamos a variável vazia para evitar o erro "Undefined variable"
     $alugueis = []; 
 
     try {
-        // Fizemos um JOIN para buscar os nomes reais
         $sql = "SELECT a.*, u.nome as cliente, p.modelo as veiculo, c.tipo as contrato 
                 FROM aluguel a
                 JOIN usuario u ON a.usuario_id = u.id
@@ -37,7 +35,7 @@
                 <th>Início</th>
                 <th>Fim</th>
                 <th>Valor Total</th>
-            </tr>
+                <th>Ações</th> </tr>
         </thead>
         <tbody>
             <?php if (count($alugueis) > 0): ?>
@@ -49,11 +47,15 @@
                     <td><?= date('d/m/Y', strtotime($a['data_inicio'])) ?></td>
                     <td><?= date('d/m/Y', strtotime($a['data_fim'])) ?></td>
                     <td class="fw-bold">R$ <?= number_format($a['valor_total'], 2, ',', '.') ?></td>
+                    <td class="d-flex gap-2">
+                        <a href="consultar_aluguel.php?id=<?= $a['id'] ?>" class="btn btn-sm btn-info text-white">Consultar</a>
+                        <a href="excluir_aluguel.php?id=<?= $a['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja realmente cancelar este aluguel?')">Excluir</a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6" class="text-center">Nenhum aluguel encontrado no sistema.</td>
+                    <td colspan="7" class="text-center">Nenhum aluguel encontrado no sistema.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
