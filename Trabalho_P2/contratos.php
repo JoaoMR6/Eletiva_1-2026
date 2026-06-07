@@ -3,7 +3,7 @@
     require_once('conexao.php');
     
     try{
-        // Mesma lógica de PDO que você já utiliza
+        // Mesma lógica de PDO
         $stmt = $pdo->query('SELECT * FROM contrato');
         $resultado = $stmt->fetchAll();
     } catch(Exception $e){
